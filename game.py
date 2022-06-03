@@ -67,7 +67,6 @@ class Game():
   def count_fps(self):
     self.time += self.window.delta_time()
     self.frame += 1
-    print(self.window.delta_time())
     if self.time >= 1.0:
       self.fps = self.frame
       self.frame = 0
