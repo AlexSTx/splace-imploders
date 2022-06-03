@@ -24,7 +24,10 @@ class Button():
 
   def on_click(self):
     if self.action:
-      self.action(self.action_args) 
+      if self.action_args:
+        self.action(self.action_args) 
+      else:
+        self.action()
 
 
   def set_coordinates(self, x, y):
