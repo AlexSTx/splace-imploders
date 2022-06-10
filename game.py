@@ -26,6 +26,8 @@ class Game():
     
     self.delay = 0.1
 
+    self.points = 0
+
 
   def add_screen(self, screen):
     self.screens[screen.type] = screen

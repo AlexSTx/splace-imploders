@@ -31,6 +31,7 @@ class PlayScreen(Screen):
     self.player.set_position(player_x, player_y)
     self.hordes = []
     self.projectiles = []
+    self.game.points = 0
 
 
   def render(self):
@@ -43,6 +44,7 @@ class PlayScreen(Screen):
       projectile.move()
 
     self.check_for_hits()
+    self.show_points()
 
     self.player.render()    
 
@@ -56,6 +58,10 @@ class PlayScreen(Screen):
               if shot.collided(enemy):
                 enemy.die(line)
                 shot.suicide()
+
+
+  def show_points(self):
+    self.game.window.draw_text(f'{int(self.game.points)}', 16, 16, 32, (0, 0, 0))
 
 
   def play(self):
