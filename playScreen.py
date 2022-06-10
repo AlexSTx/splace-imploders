@@ -50,15 +50,16 @@ class PlayScreen(Screen):
   def check_for_hits(self):
     for shot in self.projectiles:
       for horde in self.hordes:
-        for line in horde.enemies:
-          for enemy in line:
-            if shot.collided(enemy):
-              enemy.die(line)
-              shot.suicide()
+        if shot.x >= horde.bounds[0][0] and shot.x <= horde.bounds[1][0] and shot.y >= horde.bounds[0][1] and shot.y <= horde.bounds[1][1]:
+          for line in range(len(horde.enemies)-1, -1, -1):
+            for enemy in horde.enemies[line]:
+              if shot.collided(enemy):
+                enemy.die(line)
+                shot.suicide()
 
 
   def play(self):
     if len(self.hordes) != 0: return
     
-    horde = Horde(self.game, 7, 4)
+    horde = Horde(self.game, 4, 7)
     self.hordes.append(horde)

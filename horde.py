@@ -4,19 +4,20 @@ class Horde():
   def __init__(self, game, lines = 0, columns = 0):
     self.game = game
     self.enemies = []
-    self.enemies_on_screen = False
+    self.enemies_on_screen = 0
     self.direction = 1
     self.spawn(lines, columns)
     self.bounds = ((0, 0), (0, 0))
     
 
   def spawn(self, lines, columns):
-    self.enemies_on_screen = True
+    self.enemies_on_screen = lines * columns
+
     for x in range(lines):
       line = []
       for y in range(columns):
         enemy = Enemy(1, self.game, self, self.game.difficulty)
-        enemy.set_position(x * (enemy.width + (enemy.width / 2)), y * (enemy.height + (enemy.height / 2)))
+        enemy.set_position(y * (enemy.width + (enemy.width / 2)), x * (enemy.height + (enemy.height / 2)))
         line.append(enemy)
 
       self.enemies.append(line)
@@ -63,7 +64,8 @@ class Horde():
 
 
   def kill(self, line, target):
-    line.remove(target)
+    self.enemies[line].remove(target)
+    self.enemies_on_screen -= 1
     self.update_bounds()
 
 
