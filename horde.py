@@ -59,14 +59,11 @@ class Horde():
 
         if changing_direction:
           enemy.move_down()     
-    
-    self.update_bounds()
 
 
   def kill(self, line, target):
     self.enemies[line].remove(target)
     self.enemies_on_screen -= 1
-    self.update_bounds()
 
 
   def render(self):

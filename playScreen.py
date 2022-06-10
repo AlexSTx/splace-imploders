@@ -35,30 +35,32 @@ class PlayScreen(Screen):
 
 
   def render(self):
-    for horde in self.hordes:
-      horde.render()
-      horde.move()
 
     for projectile in self.projectiles:
-      projectile.render()
       projectile.move()
+      if not self.check_for_hits(projectile):
+        projectile.render()
 
-    self.check_for_hits()
+    for horde in self.hordes:
+      horde.move()
+      horde.render()
+      horde.update_bounds()
+
     self.show_points()
-
     self.player.render()    
 
 
-  def check_for_hits(self):
-    for shot in self.projectiles:
-      for horde in self.hordes:
-        if shot.x >= horde.bounds[0][0] and shot.x <= horde.bounds[1][0] and shot.y >= horde.bounds[0][1] and shot.y <= horde.bounds[1][1]:
-          for line in range(len(horde.enemies)-1, -1, -1):
-            for enemy in horde.enemies[line]:
-              if shot.collided(enemy):
-                enemy.die(line)
-                shot.suicide()
-
+  def check_for_hits(self, shot):
+    for horde in self.hordes:
+      if shot.x >= horde.bounds[0][0] and shot.x <= horde.bounds[1][0] and shot.y >= horde.bounds[0][1] and shot.y <= horde.bounds[1][1]:
+        for line in range(len(horde.enemies)-1, -1, -1):
+          for enemy in horde.enemies[line]:
+            if shot.collided(enemy):
+              enemy.die(line)
+              shot.suicide()
+              horde.update_bounds()
+              return True
+    return False
 
   def show_points(self):
     self.game.window.draw_text(f'{int(self.game.points)}', 16, 16, 32, (0, 0, 0))
