@@ -6,18 +6,14 @@ class Enemy(Entity):
     self.horde = horde
 
 
-  def move_right(self):
-    self.x += self.get_speed()
-  
-  
-  def move_left(self):
-    self.x -= self.get_speed()
+  def move_side(self, direction):
+    self.x += self.get_speed() * direction
 
 
   def move_down(self):
     self.y += 30
 
 
-  def die(self):
-    self.horde.kill(self)
+  def die(self, line):
+    self.horde.kill(line, self)
   

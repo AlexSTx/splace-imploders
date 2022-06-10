@@ -42,11 +42,23 @@ class PlayScreen(Screen):
       projectile.render()
       projectile.move()
 
+    self.check_for_hits()
+
     self.player.render()    
+
+
+  def check_for_hits(self):
+    for shot in self.projectiles:
+      for horde in self.hordes:
+        for line in horde.enemies:
+          for enemy in line:
+            if shot.collided(enemy):
+              enemy.die(line)
+              shot.suicide()
 
 
   def play(self):
     if len(self.hordes) != 0: return
     
-    horde = Horde(self.game, 4, 3)
+    horde = Horde(self.game, 7, 4)
     self.hordes.append(horde)

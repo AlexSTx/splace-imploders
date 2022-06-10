@@ -8,7 +8,7 @@ from playScreen import PlayScreen
 
 class Game():
   def __init__(self):
-    self.window = Window(800, 600)
+    self.window = Window(1280, 768)
     self.keyboard = Keyboard()
     self.mouse = Mouse()
     
@@ -107,7 +107,8 @@ class Game():
 
       if self.screen_label == 'play_screen':
 
-        self.delay = 0.2 * self.difficulty
+        # self.delay = 0.2 * self.difficulty
+        self.delay = 0.05
 
         self.screen.play()
 
