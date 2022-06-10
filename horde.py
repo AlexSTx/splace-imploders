@@ -7,6 +7,7 @@ class Horde():
     self.enemies_on_screen = False
     self.direction = 'right'
     self.spawn(lines, columns)
+    self.bounds = ((0, 0), (0, 0))
     
 
   def spawn(self, lines, columns):
@@ -24,6 +25,9 @@ class Horde():
   def move(self):
     min_x = self.game.screen.width
     max_x = 0
+    min_y = self.enemies[0][0].y
+    max_y = self.enemies[len(self.enemies)][0] + self.enemies[len(self.enemies)][0].height
+
     changing_direction = False
 
     for line in self.enemies:
@@ -31,6 +35,8 @@ class Horde():
           min_x = line[0].x
         if line[len(line) - 1].x + self.game.screen.width > max_x:
           max_x = line[len(line) - 1].x + line[len(line) - 1].width
+
+    self.bounds = ((min_x, min_y), (max_x, max_y))
 
     for line in self.enemies:
       for enemy in line: 

@@ -42,11 +42,11 @@ class PlayScreen(Screen):
       projectile.render()
       projectile.move()
 
-    self.player.render()
-    
+    self.player.render()    
+
 
   def play(self):
     if len(self.hordes) != 0: return
     
-    horde = Horde(self.game, 3, 2)
+    horde = Horde(self.game, 4, 3)
     self.hordes.append(horde)

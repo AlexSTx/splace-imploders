@@ -8,7 +8,7 @@ from playScreen import PlayScreen
 
 class Game():
   def __init__(self):
-    self.window = Window(600, 600)
+    self.window = Window(800, 600)
     self.keyboard = Keyboard()
     self.mouse = Mouse()
     
