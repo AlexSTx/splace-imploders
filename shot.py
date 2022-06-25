@@ -6,12 +6,18 @@ class Shot(Entity):
     self.type = type
 
 
-  def move(self):
+  def move(self):    
     if self.type == 1:
       self.y -= self.get_speed()
 
-    if self.y < self.height * -1:
-      self.suicide()
+      if self.y < self.height * -1:
+        self.suicide()
+
+    if self.type == 2:
+      self.y += self.get_speed()
+
+      if self.y > self.game.window.height:
+        self.suicide()
 
 
   def suicide(self):

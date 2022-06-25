@@ -113,6 +113,8 @@ class Game():
 
         self.screen.play()
 
+        self.screen.update()
+
         if self.keyboard.key_pressed('LEFT') or self.keyboard.key_pressed('A'):
           self.screen.player.move_left()
 

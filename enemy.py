@@ -1,4 +1,5 @@
 from entity import Entity
+from shot import Shot
 
 class Enemy(Entity):
   def __init__(self, type, game, horde, difficulty = 1):
@@ -13,6 +14,14 @@ class Enemy(Entity):
 
   def move_down(self):
     self.y += 30
+
+
+  def shoot(self):
+    projectile = Shot(self.game, 2)
+    projectile.set_position(self.x + self.width/2, self.y + self.height)
+    projectile.set_speed(300)
+
+    self.game.screen.add_projectile(projectile)
 
 
   def die(self, line):

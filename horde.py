@@ -1,4 +1,6 @@
+from random import random
 from enemy import Enemy
+import pygame.draw
 
 class Horde():
   def __init__(self, game, lines = 0, columns = 0):
@@ -8,6 +10,10 @@ class Horde():
     self.direction = 1
     self.spawn(lines, columns)
     self.bounds = ((0, 0), (0, 0))
+
+    self.last_attack = 0
+    self.delay_threshold = 900 / (2 * self.game.difficulty)
+    self.attack_delay = self.delay_threshold
     
 
   def spawn(self, lines, columns):
@@ -59,6 +65,29 @@ class Horde():
 
         if changing_direction:
           enemy.move_down()     
+
+
+  def __choose_enemy(self):
+    line = round(random() * (len(self.enemies)-1))
+    enemy = round(random() * (len(self.enemies[line])-1))
+    return line, enemy
+
+
+  def __can_attack(self):
+    if self.last_attack <= 0:
+      return True
+    else:
+      self.last_attack -= self.game.window.delta_time()
+      return False
+
+
+  def act(self):    
+    if self.enemies_on_screen != 0:
+      if self.__can_attack():
+        line, enemy = self.__choose_enemy()
+        self.enemies[line][enemy].shoot()
+        self.attack_delay = self.delay_threshold * (random() + 1)
+        self.last_attack = self.attack_delay
 
 
   def kill(self, line, target):

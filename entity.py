@@ -1,8 +1,8 @@
 from PPlay.sprite import Sprite
 
 class Entity(Sprite):
-  def __init__(self, sprite, game, speed = 100):
-    super().__init__(sprite)
+  def __init__(self, sprite, game, speed = 100, frame = 1):
+    super().__init__(sprite, frame)
     self.game = game  
     self.__speed = speed
 
