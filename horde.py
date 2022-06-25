@@ -1,6 +1,5 @@
 from random import random
 from enemy import Enemy
-import pygame.draw
 
 class Horde():
   def __init__(self, game, lines = 0, columns = 0):
@@ -12,7 +11,7 @@ class Horde():
     self.bounds = ((0, 0), (0, 0))
 
     self.last_attack = 0
-    self.delay_threshold = 900 / (2 * self.game.difficulty)
+    self.delay_threshold = 0.9 / (2 * self.game.difficulty)
     self.attack_delay = self.delay_threshold
     
 
