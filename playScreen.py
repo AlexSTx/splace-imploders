@@ -27,7 +27,11 @@ class PlayScreen(Screen):
 
   def reset(self):
     self.player.life = 3
+    self.player.set_curr_frame(0)
+    self.player.mortal = True
+    self.player.immortal_time = 0
     self.player.spawn()
+    
     self.hordes = []
     self.projectiles = []
     self.game.points = 0
