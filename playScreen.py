@@ -5,6 +5,7 @@ from horde import Horde
 class PlayScreen(Screen):
   def __init__(self, type, game):
     super().__init__(type, game)
+    self.horde = 1
     self.hordes = []
     self.projectiles = []
 
@@ -75,6 +76,8 @@ class PlayScreen(Screen):
                 enemy.die(line)
                 shot.suicide()
                 horde.update_bounds()
+                if horde.enemies_on_screen == 0:
+                  self.hordes = []
                 return True
         else:
           shot.set_curr_frame(0)

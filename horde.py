@@ -8,12 +8,14 @@ class Horde():
     self.horde_size = 0
     self.enemies_on_screen = 0
     self.direction = 1
+
     self.speed = self.game.difficulty * 50
+
     self.spawn(lines, columns)
     self.bounds = ((0, 0), (0, 0))
 
     self.last_attack = 0
-    self.delay_threshold = 0.9 / (2 * self.game.difficulty)
+    self.delay_threshold = 1 / (2 * self.game.difficulty)
     self.attack_delay = self.delay_threshold
     
 
@@ -52,7 +54,6 @@ class Horde():
           if line[0].x < min_x:
             min_x = line[0].x
             
-          # TODO: A RAIZ DO PROBLEMA TÁ AQUI!! A RAIZ DE TODO O MALLLLL
           x = line[len(line) - 1].x + line[len(line) - 1].width
           if x > max_x: max_x = x
 
@@ -81,7 +82,6 @@ class Horde():
           enemy.move_down()     
 
     self.update_bounds()
-
 
 
   def __choose_enemy(self):

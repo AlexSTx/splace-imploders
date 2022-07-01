@@ -4,7 +4,7 @@ class Shot(Entity):
   def __init__(self, game, type = 1, frames = 1):
     super().__init__(f'assets/entities/shot-{type}.png', game, frames)
     self.type = type
-    self.__speed = 200
+    self.__speed = 300
 
 
   def move(self):    
