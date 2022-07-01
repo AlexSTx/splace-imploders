@@ -109,7 +109,7 @@ class Game():
 
       if self.screen_label == 'play_screen':
 
-        self.delay = 0.2 * self.difficulty
+        self.delay = 0.3 * self.difficulty
 
         self.screen.play()
 

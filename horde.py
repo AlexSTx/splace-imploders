@@ -5,8 +5,10 @@ class Horde():
   def __init__(self, game, lines = 0, columns = 0):
     self.game = game
     self.enemies = []
+    self.horde_size = 0
     self.enemies_on_screen = 0
     self.direction = 1
+    self.speed = self.game.difficulty * 50
     self.spawn(lines, columns)
     self.bounds = ((0, 0), (0, 0))
 
@@ -16,7 +18,8 @@ class Horde():
     
 
   def spawn(self, lines, columns):
-    self.enemies_on_screen = lines * columns
+    self.horde_size = lines * columns
+    self.enemies_on_screen = self.horde_size
 
     for x in range(lines):
       line = []
@@ -30,6 +33,14 @@ class Horde():
     self.update_bounds()
 
 
+  def set_speed(self, speed):
+    self.speed = speed
+
+
+  def get_speed(self):
+    return self.speed * self.game.window.delta_time()
+
+
   def update_bounds(self):
     min_x = self.game.screen.width
     max_x = 0
@@ -40,8 +51,10 @@ class Horde():
         else:
           if line[0].x < min_x:
             min_x = line[0].x
-          if line[len(line) - 1].x + self.game.screen.width > max_x:
-            max_x = line[len(line) - 1].x + line[len(line) - 1].width
+            
+          # TODO: A RAIZ DO PROBLEMA TÁ AQUI!! A RAIZ DE TODO O MALLLLL
+          x = line[len(line) - 1].x + line[len(line) - 1].width
+          if x > max_x: max_x = x
 
     if len(self.enemies) > 0:
       min_y = self.enemies[0][0].y
@@ -54,16 +67,21 @@ class Horde():
   def move(self):
     changing_direction = False
 
-    for line in self.enemies:
-      for enemy in line: 
-        if (self.bounds[1][0] + enemy.get_speed() <= self.game.screen.width and self.direction > 0) or (self.bounds[0][0] - enemy.get_speed() > 0 and self.direction < 0):
-          enemy.move_side(self.direction)
-        else:
-          self.direction *= -1
-          changing_direction = True
+    if (self.bounds[1][0] + self.get_speed() <= self.game.screen.width and self.direction > 0) or (self.bounds[0][0] - self.get_speed() > 0 and self.direction < 0):
+      for line in self.enemies:
+        for enemy in line: 
+          enemy.move_side(self.direction, self.get_speed())
+    else:
+      self.direction *= -1
+      changing_direction = True
 
-        if changing_direction:
+    if changing_direction:
+      for line in self.enemies:
+        for enemy in line: 
           enemy.move_down()     
+
+    self.update_bounds()
+
 
 
   def __choose_enemy(self):

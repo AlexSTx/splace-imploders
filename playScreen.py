@@ -41,7 +41,6 @@ class PlayScreen(Screen):
     for horde in self.hordes:
       horde.move()
       horde.act()
-      horde.update_bounds()
       if horde.bounds[1][1] > self.game.window.height:
         self.game_over()
 
@@ -53,12 +52,12 @@ class PlayScreen(Screen):
 
 
   def render(self):
+    for horde in self.hordes:
+      horde.render()
+
     for projectile in self.projectiles:
       if not self.check_for_hits(projectile):
         projectile.render()
-
-    for horde in self.hordes:
-      horde.render()
 
     self.show_life()
     self.show_points()
@@ -69,6 +68,7 @@ class PlayScreen(Screen):
     if shot.type == 1:
       for horde in self.hordes:
         if shot.x >= horde.bounds[0][0] and shot.x <= horde.bounds[1][0] and shot.y >= horde.bounds[0][1] and shot.y <= horde.bounds[1][1]:
+          shot.set_curr_frame(1)
           for line in range(len(horde.enemies)-1, -1, -1):
             for enemy in horde.enemies[line]:
               if shot.collided(enemy):
@@ -76,6 +76,8 @@ class PlayScreen(Screen):
                 shot.suicide()
                 horde.update_bounds()
                 return True
+        else:
+          shot.set_curr_frame(0)
 
     if shot.type == 2:
       if shot.y + shot.height >= self.player.y:

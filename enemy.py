@@ -3,13 +3,13 @@ from shot import Shot
 
 class Enemy(Entity):
   def __init__(self, type, game, horde, difficulty = 1):
-    super().__init__(f'assets/entities/enemy-{type}.png', game, 100 * difficulty)
+    super().__init__(f'assets/entities/enemy-{type}.png', game)
     self.horde = horde
     self.difficulty = difficulty
 
 
-  def move_side(self, direction):
-    self.x += self.get_speed() * direction
+  def move_side(self, direction, speed):
+    self.x += speed * direction
 
 
   def move_down(self):

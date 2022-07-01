@@ -3,11 +3,12 @@ from shot import Shot
 
 class Player(Entity):
   def __init__(self, game):
-    super().__init__('assets/entities/player.png', game, 400, 2)
+    super().__init__('assets/entities/player.png', game, 2)
     self.life = 3
     self.mortal = True
 
     self.immortal_time = 0
+    self.__speed = 400
 
 
   def move_left(self):
@@ -24,8 +25,17 @@ class Player(Entity):
       self.x = self.game.screen.width - self.width
 
 
+  def set_speed(self, speed):
+    self.__speed = speed
+
+
+  def get_speed(self):
+    return self.__speed * self.game.window.delta_time()
+
+
   def shoot(self):
-    projectile = Shot(self.game)
+    # TODO: PUT ONLY 1 FRAME
+    projectile = Shot(self.game, 1, 2)
     projectile.set_position(self.x + self.width / 2, self.y)
     projectile.set_speed(200)
 
