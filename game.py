@@ -5,6 +5,8 @@ from PPlay.keyboard import *
 from button import Button
 from menuScreen import MenuScreen
 from playScreen import PlayScreen
+from gameOverScreen import GameOverScreen
+# from scoreScreen import ScoreScreen
 
 class Game():
   def __init__(self):
@@ -18,7 +20,7 @@ class Game():
 
     self.screens = {}
     self.screen_label = 'main'
-    self.difficulty = 1
+    self.state = {'difficulty': 1, 'last_score': 0, 'last_horde': 0}
 
     self.last_click = 0
     self.clickable = True
@@ -42,8 +44,8 @@ class Game():
   
 
   def change_difficulty(self, difficulty):
-    self.difficulty = difficulty
-    print(f'difficulty: {self.difficulty}')
+    self.state['difficulty'] = difficulty
+    print(f'difficulty: {difficulty}')
 
 
   def click(self):
@@ -95,10 +97,12 @@ class Game():
     main_menu = MenuScreen('main', self, main_menu_btns)
     difficulty_menu = MenuScreen('difficulty', self, difficulty_menu_btns)
     play_screen = PlayScreen('play_screen', self)
+    game_over_screen = GameOverScreen('game_over_screen', self)
 
     self.add_screen(main_menu)
     self.add_screen(difficulty_menu)
     self.add_screen(play_screen)
+    self.add_screen(game_over_screen)
 
 
   def loop(self):
@@ -109,7 +113,7 @@ class Game():
 
       if self.screen_label == 'play_screen':
 
-        self.delay = 0.2 + (0.075 * self.difficulty)
+        self.delay = 0.2 + (0.075 * self.state['difficulty'])
 
         self.screen.play()
 

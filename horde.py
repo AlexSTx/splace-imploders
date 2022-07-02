@@ -10,13 +10,13 @@ class Horde():
     self.direction = 1
 
     # enemies get 15% faster each horde
-    self.speed = self.game.difficulty * 50 * (1 + 0.15 * horde_num)
+    self.speed = self.game.state['difficulty'] * 50 * (1 + 0.15 * horde_num)
 
     self.spawn(lines, columns)
     self.bounds = ((0, 0), (0, 0))
 
     self.last_attack = 0
-    self.delay_threshold = 1 / (2 * self.game.difficulty)
+    self.delay_threshold = 1 / (2 * self.game.state['difficulty'])
     self.attack_delay = self.delay_threshold
     
 
@@ -27,7 +27,7 @@ class Horde():
     for x in range(lines):
       line = []
       for y in range(columns):
-        enemy = Enemy(1, self.game, self, self.game.difficulty)
+        enemy = Enemy(1, self.game, self, self.game.state['difficulty'])
         enemy.set_position(y * (enemy.width + (enemy.width / 2)), x * (enemy.height + (enemy.height / 2)))
         line.append(enemy)
 

@@ -27,7 +27,7 @@ class PlayScreen(Screen):
 
 
   def reset(self):
-    self.player.life = 5
+    self.player.life = 1
     self.player.set_curr_frame(0)
     self.player.mortal = True
     self.player.immortal_time = 0
@@ -99,8 +99,10 @@ class PlayScreen(Screen):
 
 
   def game_over(self):
+    self.game.state['last_horde'] = self.horde
+    self.game.state['last_score'] = self.game.points
     self.game.screen.reset()
-    self.game.change_screen('main')
+    self.game.change_screen('game_over_screen')
 
 
   def show_points(self):
