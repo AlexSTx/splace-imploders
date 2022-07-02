@@ -26,4 +26,4 @@ class Enemy(Entity):
 
   def die(self, line):
     self.horde.kill(line, self)
-    self.game.points += 10 * (1 + 0.5 * self.difficulty)  
+    self.game.points += 20 * self.difficulty  
