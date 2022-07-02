@@ -27,6 +27,8 @@ class PlayScreen(Screen):
 
 
   def reset(self):
+    self.game.delay = 0.2 + (0.075 * self.game.state['difficulty'])
+
     self.player.life = 1
     self.player.set_curr_frame(0)
     self.player.mortal = True
@@ -51,6 +53,20 @@ class PlayScreen(Screen):
 
     if not self.player.mortal:
       self.player.update_immortal_timer()
+
+
+  def run(self):
+    self.play()
+    self.update()
+
+    if self.game.keyboard.key_pressed('LEFT') or self.game.keyboard.key_pressed('A'):
+      self.player.move_left()
+
+    if self.game.keyboard.key_pressed('RIGHT') or self.game.keyboard.key_pressed('D'):
+      self.player.move_right()
+  
+    if self.game.keyboard.key_pressed('SPACE'):
+      self.on_click()
 
 
   def render(self):

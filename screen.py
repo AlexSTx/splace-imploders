@@ -17,6 +17,14 @@ class Screen:
     return None
 
 
+  def run(self):
+    self.on_mouse_over()
+
+    if self.game.mouse.is_button_pressed(1):
+      self.game.delay = 0.3
+      self.on_click()
+
+
   @abstractmethod
   def render():
     return None

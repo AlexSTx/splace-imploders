@@ -110,30 +110,7 @@ class Game():
       self.window.set_background_color([255, 255, 255])
 
       self.screen.render()
-
-      if self.screen_label == 'play_screen':
-
-        self.delay = 0.2 + (0.075 * self.state['difficulty'])
-
-        self.screen.play()
-
-        self.screen.update()
-
-        if self.keyboard.key_pressed('LEFT') or self.keyboard.key_pressed('A'):
-          self.screen.player.move_left()
-
-        if self.keyboard.key_pressed('RIGHT') or self.keyboard.key_pressed('D'):
-          self.screen.player.move_right()
-      
-        if self.keyboard.key_pressed('SPACE'):
-          self.screen.on_click()
-
-      else:
-        self.screen.on_mouse_over()
-
-        if self.mouse.is_button_pressed(1):
-          self.delay = 0.3
-          self.screen.on_click()
+      self.screen.run()
 
       self.update_entry_countdown(self.delay)
 
