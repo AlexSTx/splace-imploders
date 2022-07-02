@@ -2,14 +2,15 @@ from random import random
 from enemy import Enemy
 
 class Horde():
-  def __init__(self, game, lines = 0, columns = 0):
+  def __init__(self, game, horde_num, lines = 0, columns = 0):
     self.game = game
     self.enemies = []
     self.horde_size = 0
     self.enemies_on_screen = 0
     self.direction = 1
 
-    self.speed = self.game.difficulty * 50
+    # enemies get 15% faster each horde
+    self.speed = self.game.difficulty * 50 * (1 + 0.15 * horde_num)
 
     self.spawn(lines, columns)
     self.bounds = ((0, 0), (0, 0))
@@ -110,6 +111,9 @@ class Horde():
   def kill(self, line, target):
     self.enemies[line].remove(target)
     self.enemies_on_screen -= 1
+
+    # horde get 1.5% faster for each enemy dead
+    self.speed *= 1.015
 
 
   def render(self):

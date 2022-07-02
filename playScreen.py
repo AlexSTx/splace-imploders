@@ -5,7 +5,7 @@ from horde import Horde
 class PlayScreen(Screen):
   def __init__(self, type, game):
     super().__init__(type, game)
-    self.horde = 1
+    self.horde = 0
     self.hordes = []
     self.projectiles = []
 
@@ -27,12 +27,13 @@ class PlayScreen(Screen):
 
 
   def reset(self):
-    self.player.life = 3
+    self.player.life = 5
     self.player.set_curr_frame(0)
     self.player.mortal = True
     self.player.immortal_time = 0
     self.player.spawn()
     
+    self.horde = 0
     self.hordes = []
     self.projectiles = []
     self.game.points = 0
@@ -113,5 +114,6 @@ class PlayScreen(Screen):
   def play(self):
     if len(self.hordes) != 0: return
     
-    horde = Horde(self.game, 4, 7)
+    self.horde += 1
+    horde = Horde(self.game, self.horde, 4, 5)
     self.hordes.append(horde)
