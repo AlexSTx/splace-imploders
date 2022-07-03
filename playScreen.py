@@ -1,3 +1,4 @@
+from random import randint
 from screen import Screen
 from player import Player
 from horde import Horde
@@ -102,8 +103,13 @@ class PlayScreen(Screen):
   def horde_control(self):
     if len(self.hordes) != 0: return
     
+    print(randint(3,5))
+
+    vertical_amout = randint(2, 5)
+    horizontal_amount = randint(4, 7)
+
     self.horde += 1
-    horde = Horde(self.game, self.horde, 4, 5)
+    horde = Horde(self.game, self.horde, vertical_amout, horizontal_amount)
     self.hordes.append(horde)
 
 
