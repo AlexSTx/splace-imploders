@@ -86,7 +86,6 @@ class PlayScreen(Screen):
     if shot.type == 1:
       for horde in self.hordes:
         if shot.x >= horde.bounds[0][0] and shot.x <= horde.bounds[1][0] and shot.y >= horde.bounds[0][1] and shot.y <= horde.bounds[1][1]:
-          shot.set_curr_frame(1)
           for line in range(len(horde.enemies)-1, -1, -1):
             for enemy in horde.enemies[line]:
               if shot.collided(enemy):
@@ -96,8 +95,7 @@ class PlayScreen(Screen):
                 if horde.enemies_on_screen == 0:
                   self.hordes = []
                 return True
-        else:
-          shot.set_curr_frame(0)
+ 
 
     if shot.type == 2:
       if shot.y + shot.height >= self.player.y:
@@ -117,7 +115,7 @@ class PlayScreen(Screen):
   def game_over(self):
     self.game.state['last_horde'] = self.horde
     self.game.state['last_score'] = self.game.points
-    self.game.screen.reset()
+    self.reset()
     self.game.change_screen('game_over_screen')
 
 

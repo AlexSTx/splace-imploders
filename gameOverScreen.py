@@ -7,6 +7,10 @@ class GameOverScreen(Screen):
     self.title = Sprite('assets/game-over.png')
 
 
+  def run(self):
+    return
+
+
   def render(self):
     x = int((self.width - self.title.width) / 2)
     

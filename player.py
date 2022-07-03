@@ -34,8 +34,7 @@ class Player(Entity):
 
 
   def shoot(self):
-    # TODO: PUT ONLY 1 FRAME
-    projectile = Shot(self.game, 1, 2)
+    projectile = Shot(self.game, 1)
     projectile.set_position(self.x + self.width / 2, self.y)
     projectile.set_speed(200)
 
