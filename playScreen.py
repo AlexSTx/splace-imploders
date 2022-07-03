@@ -105,7 +105,7 @@ class PlayScreen(Screen):
     
     print(randint(3,5))
 
-    vertical_amout = randint(2, 5)
+    vertical_amout = randint(2, 4)
     horizontal_amount = randint(4, 7)
 
     self.horde += 1
