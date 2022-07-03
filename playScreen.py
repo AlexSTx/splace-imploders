@@ -50,36 +50,10 @@ class PlayScreen(Screen):
 
     for projectile in self.projectiles:
       projectile.move()
+      self.check_for_hits(projectile)
 
     if not self.player.mortal:
       self.player.update_immortal_timer()
-
-
-  def run(self):
-    self.play()
-    self.update()
-
-    if self.game.keyboard.key_pressed('LEFT') or self.game.keyboard.key_pressed('A'):
-      self.player.move_left()
-
-    if self.game.keyboard.key_pressed('RIGHT') or self.game.keyboard.key_pressed('D'):
-      self.player.move_right()
-  
-    if self.game.keyboard.key_pressed('SPACE'):
-      self.on_click()
-
-
-  def render(self):
-    for horde in self.hordes:
-      horde.render()
-
-    for projectile in self.projectiles:
-      if not self.check_for_hits(projectile):
-        projectile.render()
-
-    self.show_life()
-    self.show_points()
-    self.player.render()    
 
 
   def check_for_hits(self, shot):
@@ -106,9 +80,7 @@ class PlayScreen(Screen):
               self.player.spawn()
             else:
               self.game_over()
-              
           return True
-
     return False
 
 
@@ -117,6 +89,7 @@ class PlayScreen(Screen):
     self.game.state['last_score'] = self.game.points
     self.reset()
     self.game.change_screen('game_over_screen')
+    self.game.screen.reset_delay()
 
 
   def show_points(self):
@@ -127,9 +100,35 @@ class PlayScreen(Screen):
     self.game.window.draw_text(f'{self.player.life}', self.game.window.width - 32, 16, 32, (255, 0, 0))
 
 
-  def play(self):
+  def horde_control(self):
     if len(self.hordes) != 0: return
     
     self.horde += 1
     horde = Horde(self.game, self.horde, 4, 5)
     self.hordes.append(horde)
+
+
+  def run(self):
+    self.horde_control()
+    self.update()
+
+    if self.game.keyboard.key_pressed('LEFT') or self.game.keyboard.key_pressed('A'):
+      self.player.move_left()
+
+    if self.game.keyboard.key_pressed('RIGHT') or self.game.keyboard.key_pressed('D'):
+      self.player.move_right()
+  
+    if self.game.keyboard.key_pressed('SPACE'):
+      self.on_click()
+
+
+  def render(self):
+    for horde in self.hordes:
+      horde.render()
+
+    for projectile in self.projectiles:
+        projectile.render()
+
+    self.show_life()
+    self.show_points()
+    self.player.render()    
