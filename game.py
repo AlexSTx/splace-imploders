@@ -6,7 +6,7 @@ from button import Button
 from menuScreen import MenuScreen
 from playScreen import PlayScreen
 from gameOverScreen import GameOverScreen
-# from scoreScreen import ScoreScreen
+from scoreScreen import ScoreScreen
 
 class Game():
   def __init__(self):
@@ -41,6 +41,7 @@ class Game():
   def change_screen(self, screen_label):
     self.screen_label = screen_label
     self.screen = self.screens[screen_label]
+    self.screen.just_entered = True
   
 
   def change_difficulty(self, difficulty):
@@ -87,7 +88,7 @@ class Game():
     # setting up screens
     main_menu_btns = [Button('play', self.change_screen, 'play_screen'), 
                       Button('difficulty', self.change_screen, 'difficulty'), 
-                      Button('ranking'), 
+                      Button('ranking', self.change_screen, 'score_screen'), 
                       Button('exit', self.exit)]
 
     difficulty_menu_btns = [Button('easy', self.change_difficulty, 1), 
@@ -98,11 +99,13 @@ class Game():
     difficulty_menu = MenuScreen('difficulty', self, difficulty_menu_btns)
     play_screen = PlayScreen('play_screen', self)
     game_over_screen = GameOverScreen('game_over_screen', self)
+    score_screen = ScoreScreen('score_screen', self)
 
     self.add_screen(main_menu)
     self.add_screen(difficulty_menu)
     self.add_screen(play_screen)
     self.add_screen(game_over_screen)
+    self.add_screen(score_screen)
 
 
   def loop(self):

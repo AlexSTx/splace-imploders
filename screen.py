@@ -8,6 +8,8 @@ class Screen:
     self.width = game.window.width
     self.height = game.window.height
 
+    self.just_entered = False
+
 
   def on_click(self):
     return None

@@ -29,7 +29,7 @@ class PlayScreen(Screen):
   def reset(self):
     self.game.delay = 0.2 + (0.075 * self.game.state['difficulty'])
 
-    self.player.life = 1
+    self.player.life = 5
     self.player.set_curr_frame(0)
     self.player.mortal = True
     self.player.immortal_time = 0
@@ -89,7 +89,6 @@ class PlayScreen(Screen):
     self.game.state['last_score'] = self.game.points
     self.reset()
     self.game.change_screen('game_over_screen')
-    self.game.screen.reset_delay()
 
 
   def show_points(self):
