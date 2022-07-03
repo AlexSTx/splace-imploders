@@ -36,7 +36,6 @@ class Player(Entity):
   def shoot(self):
     projectile = Shot(self.game, 1)
     projectile.set_position(self.x + self.width / 2, self.y)
-    projectile.set_speed(200)
 
     self.game.screen.add_projectile(projectile)
 

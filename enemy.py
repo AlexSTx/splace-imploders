@@ -19,7 +19,6 @@ class Enemy(Entity):
   def shoot(self):
     projectile = Shot(self.game, 2)
     projectile.set_position(self.x + self.width/2, self.y + self.height)
-    projectile.set_speed(300)
 
     self.game.screen.add_projectile(projectile)
 

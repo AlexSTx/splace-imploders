@@ -1,10 +1,10 @@
 from entity import Entity
 
 class Shot(Entity):
-  def __init__(self, game, type = 1, frames = 1):
+  def __init__(self, game, type = 1, frames = 1, speed = 450):
     super().__init__(f'assets/entities/shot-{type}.png', game, frames)
     self.type = type
-    self.__speed = 350
+    self.__speed = speed
 
 
   def move(self):    

@@ -6,3 +6,4 @@ astolfo 480
 josé 960
 roberto 200
 alex 3360
+alex 8340
