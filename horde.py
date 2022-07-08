@@ -1,4 +1,4 @@
-from random import random
+import random
 from enemy import Enemy
 
 class Horde():
@@ -24,10 +24,15 @@ class Horde():
     self.horde_size = lines * columns
     self.enemies_on_screen = self.horde_size
 
+    boss_coordinates = (random.randint(0,lines-1), random.randint(0, columns-1))
+
     for x in range(lines):
       line = []
       for y in range(columns):
-        enemy = Enemy(1, self.game, self, self.game.state['difficulty'])
+        if x == boss_coordinates[0] and y == boss_coordinates[1]:
+          enemy = Enemy(2, self.game, self, self.game.state['difficulty'], 3)
+        else:
+          enemy = Enemy(1, self.game, self, self.game.state['difficulty'])
         enemy.set_position(y * (enemy.width + (enemy.width / 2)), x * (enemy.height + (enemy.height / 2)))
         line.append(enemy)
 
@@ -86,8 +91,8 @@ class Horde():
 
 
   def __choose_enemy(self):
-    line = round(random() * (len(self.enemies)-1))
-    enemy = round(random() * (len(self.enemies[line])-1))
+    line = round(random.random() * (len(self.enemies)-1))
+    enemy = round(random.random() * (len(self.enemies[line])-1))
     return line, enemy
 
 
@@ -104,7 +109,7 @@ class Horde():
       if self.__can_attack():
         line, enemy = self.__choose_enemy()
         self.enemies[line][enemy].shoot()
-        self.attack_delay = self.delay_threshold * (random() + 1)
+        self.attack_delay = self.delay_threshold * (random.random() + 1)
         self.last_attack = self.attack_delay
 
 

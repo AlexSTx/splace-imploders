@@ -64,7 +64,7 @@ class PlayScreen(Screen):
           for line in range(len(horde.enemies)-1, -1, -1):
             for enemy in horde.enemies[line]:
               if shot.collided(enemy):
-                enemy.die(line)
+                enemy.take_hit(line)
                 shot.suicide()
                 horde.update_bounds()
                 if horde.enemies_on_screen == 0:
@@ -103,8 +103,6 @@ class PlayScreen(Screen):
   def horde_control(self):
     if len(self.hordes) != 0: return
     
-    print(randint(3,5))
-
     vertical_amout = randint(2, 4)
     horizontal_amount = randint(4, 7)
 

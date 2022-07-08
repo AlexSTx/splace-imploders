@@ -2,10 +2,11 @@ from entity import Entity
 from shot import Shot
 
 class Enemy(Entity):
-  def __init__(self, type, game, horde, difficulty = 1):
+  def __init__(self, type, game, horde, difficulty = 1, life=1):
     super().__init__(f'assets/entities/enemy-{type}.png', game)
     self.horde = horde
     self.difficulty = difficulty
+    self.life = life
 
 
   def move_side(self, direction, speed):
@@ -19,8 +20,15 @@ class Enemy(Entity):
   def shoot(self):
     projectile = Shot(self.game, 2)
     projectile.set_position(self.x + self.width/2, self.y + self.height)
+    projectile.set_speed(300)
 
     self.game.screen.add_projectile(projectile)
+
+
+  def take_hit(self, line):
+    self.life -= 1
+    if self.life == 0:
+      self.die(line)
 
 
   def die(self, line):

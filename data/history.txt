@@ -1,9 +1,4 @@
-ciro 0
-micael 2280
-alex 440
-joseph 0
-astolfo 480
-josé 960
-roberto 200
-alex 3360
-alex 8340
+jorge 1620
+louco 5100
+nancy 660
+josh 4020
