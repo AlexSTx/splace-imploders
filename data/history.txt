@@ -1,4 +1,2 @@
-jorge 1620
-louco 5100
-nancy 660
-josh 4020
+alex 280
+jorge 240

@@ -1,5 +1,6 @@
 from screen import Screen
 from PPlay.sprite import Sprite
+from os.path import exists
 
 class ScoreScreen(Screen):
   def __init__(self, type, game):
@@ -9,6 +10,14 @@ class ScoreScreen(Screen):
 
 
   def get_scores(self):
+    file_exists = exists('./data/history.txt')
+
+    print(file_exists)
+
+    if not file_exists:
+      self.scores = []
+      return
+
     with open('data/history.txt', encoding='utf-8') as file:
       self.scores = file.readlines()[-5:]
 
